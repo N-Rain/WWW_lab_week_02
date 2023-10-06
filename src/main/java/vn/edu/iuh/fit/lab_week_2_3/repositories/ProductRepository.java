@@ -54,6 +54,18 @@ public class ProductRepository {
             logger.error(ex.getMessage());
         }
     }
+    public void updateStatus(long id, ProductStatus status){
+        Product product = em.createNamedQuery("Product.findById", Product.class).setParameter(1,id).getSingleResult();
+        product.setStatus(status);
+        try {
+            trans.begin();
+            em.merge(product);
+            trans.commit();
+        } catch (Exception ex){
+            trans.rollback();
+            logger.error(ex.getMessage());
+        }
+    }
 
     public void delPro(Product product){
         try {
@@ -68,6 +80,8 @@ public class ProductRepository {
             logger.error(ex.getMessage());
         }
     }
+
+
 
     public Optional<Product> findProdById(long id){
         TypedQuery<Product> query = em.createQuery("select p from Product p where p.product_id=:id", Product.class);

@@ -16,6 +16,9 @@ public class ProductServices {
         repository.insertProd(product);
     }
 
+    public void updateStatus(long id, ProductStatus status){
+        repository.updateStatus(id,status);
+    }
     public Optional<Product>findProductById(long id){
         return repository.findProdById(id);
     }

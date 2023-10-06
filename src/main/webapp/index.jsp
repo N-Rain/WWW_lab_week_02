@@ -16,8 +16,8 @@
 <body>
 <%
     EmployeeRepository repository = new EmployeeRepository();
-    Employee emp = new Employee("teo", LocalDate.now(), "teo" + System.currentTimeMillis() + "@mail.com",
-            "2349235", "12 NVB", EmployeeStatus.ACTIVE);
+    Employee emp = new Employee("abc", LocalDate.now(), "abcd" + System.currentTimeMillis() + "@mail.com",
+            "1234567", "17 INY", EmployeeStatus.ACTIVE);
     repository.insertEmp(emp);
 
     out.print(emp);
@@ -26,8 +26,8 @@
     Product product = new Product("xoai", "xoai ngot", "kg", "ba dua", ProductStatus.ACTIVE);
 
     ProductImage productImage = new ProductImage();
-    productImage.setAlternative("xxx xxx");
-    productImage.setPath("/zzz.jpg");
+    productImage.setAlternative("abc");
+    productImage.setPath("/abc.jpg");
     productImage.setProduct(product);
 
     product.getProductImageList().add(productImage);
