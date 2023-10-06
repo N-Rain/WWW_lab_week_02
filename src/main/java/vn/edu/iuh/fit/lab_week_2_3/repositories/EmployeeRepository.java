@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vn.edu.iuh.fit.lab_week_2_3.enums.EmployeeStatus;
 import vn.edu.iuh.fit.lab_week_2_3.models.Employee;
+import vn.edu.iuh.fit.lab_week_2_3.models.Product;
 
 
 import java.util.List;
@@ -44,12 +45,26 @@ public class EmployeeRepository {
         employee.setStatus(status);
     }
 
-    public void update(Employee employee) {
+    public void updateEmp(Employee employee) {
         try {
             trans.begin();
             em.merge(employee);
             trans.commit();
         } catch (Exception ex) {
+            trans.rollback();
+            logger.error(ex.getMessage());
+        }
+    }
+
+    public void delEmp(Employee employee){
+        try {
+            trans.begin();
+            Product delprod = em.find(Product.class,employee.getId());
+            if(delprod != null){
+                em.remove(employee);
+            }
+            trans.commit();
+        } catch (Exception ex){
             trans.rollback();
             logger.error(ex.getMessage());
         }

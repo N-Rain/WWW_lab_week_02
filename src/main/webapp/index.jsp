@@ -6,6 +6,7 @@
 <%@ page import="vn.edu.iuh.fit.lab_week_2_3.enums.ProductStatus" %>
 <%@ page import="vn.edu.iuh.fit.lab_week_2_3.enums.EmployeeStatus" %>
 <%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@
 <body>
 <%
     EmployeeRepository repository = new EmployeeRepository();
-    Employee emp = new Employee("teo", LocalDateTime.now(), "teo" + System.currentTimeMillis() + "@mail.com",
+    Employee emp = new Employee("teo", LocalDate.now(), "teo" + System.currentTimeMillis() + "@mail.com",
             "2349235", "12 NVB", EmployeeStatus.ACTIVE);
     repository.insertEmp(emp);
 
@@ -31,7 +32,9 @@
 
     product.getProductImageList().add(productImage);
 
-    productRepository.insert(product);
+    productRepository.insertProd(product);
+
+    out.print(product);
 
     out.print("OK");
 %>

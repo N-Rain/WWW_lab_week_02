@@ -23,16 +23,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Order> orderList;
 
-    public Customer() {
-    }
-
-    public Customer(String name, String email, String phone, String address) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-    }
-
     public long getId() {
         return id;
     }
@@ -80,6 +70,17 @@ public class Customer {
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
     }
+
+    public Customer() {
+    }
+
+    public Customer(String name, String email, String phone, String address) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
+
 
     @Override
     public String toString() {

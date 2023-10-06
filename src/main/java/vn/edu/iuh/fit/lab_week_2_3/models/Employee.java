@@ -1,10 +1,14 @@
 package vn.edu.iuh.fit.lab_week_2_3.models;
 
-import jakarta.json.bind.annotation.JsonbDateFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import jakarta.persistence.*;
 import vn.edu.iuh.fit.lab_week_2_3.enums.EmployeeStatus;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -23,8 +27,9 @@ public class Employee {
     @Column(name = "full_name", length = 150, nullable = false)
     private String fullname;
     @Column(name = "dob", nullable = false)
-    @JsonbDateFormat(value = "yyyy-MM-dd")
-    private LocalDateTime dob;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dob;
     @Column(name = "email", unique = true, length = 150)
     private String email;
     @Column(name = "phone", length = 15, nullable = false)
@@ -36,13 +41,12 @@ public class Employee {
     private EmployeeStatus status;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-//    @JoinColumn
     private List<Order> lstOrder;
 
     public Employee() {
     }
 
-    public Employee(String fullname, LocalDateTime dob, String email, String phone, String address, EmployeeStatus status) {
+    public Employee(String fullname, LocalDate dob, String email, String phone, String address, EmployeeStatus status) {
         this.fullname = fullname;
         this.dob = dob;
         this.email = email;
@@ -67,11 +71,11 @@ public class Employee {
         this.fullname = fullname;
     }
 
-    public LocalDateTime getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(LocalDateTime dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -117,7 +121,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "{" +
                 "id=" + id +
                 ", fullname='" + fullname + '\'' +
                 ", dob=" + dob +
